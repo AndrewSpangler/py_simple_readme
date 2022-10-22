@@ -1,0 +1,10 @@
+{
+	"name":"py_simple_readme",
+	"author":"Andrew Spangler",
+	"version":"0.0.0",
+	"license":"GPLv3",
+	"email":"AndrewSpangler@users.noreply.github.com",
+	"description":"Quick, easy, navigatable readme generator",
+	"requirements":[],
+	"url":"https://github.com/AndrewSpangler/"
+}

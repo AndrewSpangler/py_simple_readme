@@ -1,0 +1,5 @@
+[] Bump Version
+[] Install dependencies
+[] Run python setup.py build
+[] Run python setup.py bdist_wheel
+[] Run python -m twine upload dist/*
