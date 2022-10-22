@@ -1,8 +1,0 @@
-[] Change src/main.py to the project name
-[] Fix src/main description
-[] Ensure __init__.py has proper imports
-[] Set version.py
-[] Check license (default is GPLv3)
-[] Configure readme_generator.py
-[] Ensure requirements.txt is up-to-date
-[] Create pipenv
