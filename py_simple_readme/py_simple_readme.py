@@ -216,12 +216,16 @@ class readme_generator:
             raise ValueError("Invalid changelog type set.")
         self.changelog = changelog
 
-    def handle_class_list(self, classes: list):
+    def handle_class_list(self, classes: list, show_submodule: bool = False):
         """Adds documentation for a list of classes at the current point in the readme body."""
         self.increase_toc_depth()
         for c in classes:
-            self.add_heading_3(c.__name__, end="", add_toc=True)
-            # self.add_toc(c.__name__)
+            self.add_heading_3(
+                f"{c.__module__}.{c.__name__}" if show_submodule else c.__name__,
+                end="",
+                add_toc=False,
+            )
+            self.add_toc(c.__name__)
             self.quote_depth += 1
             if c.__doc__:  # Add docstring
                 self.add_paragraph(f"**{c.__doc__}**", end=f"\n{self.get_prefix()}\n")
@@ -269,21 +273,23 @@ class readme_generator:
 
             formatted_classstring = ""
             for l in classstring.splitlines():
-                formatted_classstring += self.get_prefix() + l + "\n"
+                formatted_classstring += f"{self.get_prefix()}{l}\n"
             self.add_code_block(formatted_classstring.strip(), lang="py")
             self.quote_depth -= 1
         self.decrease_toc_depth()
 
-    def handle_function_list(self, functions: list):
+    def handle_function_list(self, functions: list, show_submodule: bool = False):
         """Adds documentation for a list of functions at the current point in the readme body."""
         self.increase_toc_depth()
         for f in functions:
-            self.add_heading_3(f.__name__, end="", add_toc=False)
+            nam = f"{f.__module__}.{f.__name__}" if show_submodule else f.__name__
+            self.add_heading_3(nam, end="", add_toc=False)
             self.add_toc(f.__name__)
             self.quote_depth += 1
             self.add_paragraph(f"**{f.__doc__}**", end=f"\n{self.get_prefix()}\n")
-            name = f.__name__
-            funcstring = f"def {name}{str(signature(f))}:\n{self.get_prefix()}\t..."
+            funcstring = (
+                f"def {f.__name__}{str(signature(f))}:\n{self.get_prefix()}\t..."
+            )
             self.add_code_block(funcstring)
             self.quote_depth -= 1
         self.decrease_toc_depth()
@@ -316,6 +322,8 @@ class readme_generator:
         if self._footnotes:
             for i in range(len(self._footnotes)):
                 out += f"[^{i+1}]: {self._footnotes[i]}."
+        out += "\n\nGenerated with [py_simple_readme]"
+        out += "(https://github.com/AndrewSpangler/py_simple_readme)"
         return out
 
     def save(self, path):

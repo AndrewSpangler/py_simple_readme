@@ -30,12 +30,12 @@ if __name__ == "__main__":
         },
         "project": {
             "name": (name := settings["name"]),
-            "author": (author := settings["author"]),
-            "url": (baseurl := settings["url"] + f"{name}/"),
+            # "author": (author := settings["author"]),
+            # "url": (baseurl := settings["url"] + f"{name}/"),
             "version": settings["version"],
             "description": settings["description"],
-            "maintainter": author,
-            "copyright": f"Copyright 2022, {author}",
+            # "maintainter": author,
+            # "copyright": f"Copyright 2022, {author}",
             "readme": "README.md",
             "requires-python": ">=3.8",
             "classifiers": [
@@ -53,7 +53,7 @@ if __name__ == "__main__":
             "keywords": [],
         },
         "project.urls": {
-            '"Homepage"': baseurl,
+            '"Homepage"': (baseurl := settings["url"] + f"{name}/"),
             '"Bug Tracker"': baseurl + "issues",
         },
     }
@@ -66,16 +66,20 @@ if __name__ == "__main__":
 
     # Regenerate README.md
     with open(join(root, "README.md"), "w+") as f:
-        with open(join(root, "changelog.json"), "r") as c:
-            readme = generate_readme(data, json.load(c))
-            f.write(readme)
+        readme = generate_readme(data, settings["changelog"])
+        f.write(readme)
 
     # Regenerate requirements.txt
     with open(join(root, "requirements.txt"), "w+") as f:
         f.writelines(requirements)
 
+    # was getting error when reusing generated value rather than read from file
+    with open(join(root, "README.md"), "r") as f:
+        readme = f.read()
+
     setup(
         name=name,
         author_email=settings["email"],
         long_description=readme,
+        # long_description_content_type="",
     )

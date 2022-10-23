@@ -1,4 +1,4 @@
-# py_simple_readme 0.0.0<a name="mark0"></a>
+# py_simple_readme 0.0.2<a name="mark0"></a>
 
 ***Quick, easy, navigatable readme generator***
 
@@ -8,7 +8,9 @@
 	- [Example](#mark4)
 	- [readme_generator](#mark5)
 - [Changelog](#mark6)
-	- [0.0.0](#mark7)
+	- [0.0.2](#mark7)
+	- [0.0.1](#mark8)
+	- [0.0.0](#mark9)
 
 ---
 
@@ -109,9 +111,9 @@ f.write(gen.assemble())
 > 		"""Alias for add_heading_5"""
 > 	def h6(self, *args, **kwargs):
 > 		"""Alias for add_heading_6"""
-> 	def handle_class_list(self, classes: list):
+> 	def handle_class_list(self, classes: list, show_submodule: bool = False):
 > 		"""Adds documentation for a list of classes at the current point in the readme body."""
-> 	def handle_function_list(self, functions: list):
+> 	def handle_function_list(self, functions: list, show_submodule: bool = False):
 > 		"""Adds documentation for a list of functions at the current point in the readme body."""
 > 	def hr(self):
 > 		"""Alias for add_horizontal_rule"""
@@ -146,7 +148,18 @@ f.write(gen.assemble())
 > ```
 # Changelog<a name="mark6"></a>[^](#mark0)
 
-## 0.0.0<a name="mark7"></a>[^](#mark6)
+## 0.0.2<a name="mark7"></a>[^](#mark6)
+
+Add show_submodule argument to function/class documenter function
+
+## 0.0.1<a name="mark8"></a>[^](#mark6)
+
+Fix PyPi readme
+
+## 0.0.0<a name="mark9"></a>[^](#mark6)
 
 Push
 
+
+
+Generated with [py_simple_readme](https://github.com/AndrewSpangler/py_simple_readme)
